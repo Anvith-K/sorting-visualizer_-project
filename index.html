@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+
+    <title>Sorting Visualizer</title>
+</head>
+<body>
+    
+    <div class="container">
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <h1>Sorting Visualizer</h1>
+        </div>
+
+        <div id="array-container">
+            <div id="array"></div>
+            <h5 id="no-algo-warning" class="display-none">No Algorithm Selected!</h5>
+        </div>
+        <div id="algo-container">
+            <button class="algo-btn" onclick="showDescription('Bubble Sort')">Bubble Sort</button>
+            <button class="algo-btn" onclick="showDescription('Selection Sort')">Selection Sort</button>
+            <button class="algo-btn" onclick="showDescription('Insertion Sort')">Insertion Sort</button>
+            <button class="algo-btn" onclick="showDescription('Merge Sort')">Merge Sort</button>
+            <button class="algo-btn" onclick="showDescription('Quicksort')">Quicksort</button>
+            <button class="algo-btn" onclick="showDescription('Heapsort')">Heapsort</button>
+            <button id="sort">Sort</button>
+        </div>
+        <div id="change-container">
+            <button id="randomize">Randomize</button>
+            <div id="sliders">
+                <div class="slider-container">
+                    <label>Array Size</label>
+                    <input type="range" id="size-slider" class="slider" autocomplete="off">
+                </div>
+                <div class="slider-container">
+                    <label>Speed</label>
+                    <input type="range" id="speed-slider" class="slider" autocomplete="off">
+                </div>
+            </div>
+        </div>
+        <div id="description-container" class="display-none">
+            <h3 id="description-heading"></h3>
+            <p id="description-text"></p>
+            <p id="time-complexity"></p>
+            <p id="space-complexity"></p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="assets/script.js"></script>
+    <script src="assets/bubble-sort.js"></script>
+    <script src="assets/selection-sort.js"></script>
+    <script src="assets/insertion-sort.js"></script>
+    <script src="assets/merge-sort.js"></script>
+    <script src="assets/quicksort.js"></script>
+    <script src="assets/heapsort.js"></script>
+
+    <script>
+        function showDescription(algorithm) {
+            var description = "";
+            var timeComplexity = "";
+            var spaceComplexity = "";
+
+            // Set description, time complexity, and space complexity based on the algorithm
+            switch (algorithm) {
+                case "Bubble Sort":
+                    description = " Bubble Sort repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. The pass through the list is repeated until the list is sorted";
+                    timeComplexity = "Time complexity: O(n^2) in the worst and average case, O(n) in the best case (when the list is already sorted).";
+                    spaceComplexity = "Space complexity: O(1) as only a constant amount of additional space is required.";
+                    break;
+                case "Selection Sort":
+                description = "Selection Sort divides the input list into two parts: the sublist of items already sorted and the sublist of items remaining to be sorted. It repeatedly finds the minimum element from the unsorted sublist and moves it to the beginning of the sorted sublist.";
+                    timeComplexity = "Time Complexity: O(n^2) regardless of the input data.";
+                    spaceComplexity = "Space Complexity: O(1) as it only requires a constant amount of additional space.";
+                    break;
+                case "Insertion Sort":
+                description = " Insertion Sort builds the final sorted array (or list) one item at a time. It takes each element from the unsorted part and inserts it into its correct position in the sorted part.";
+                    timeComplexity = "Time complexity:  O(n^2) in the worst and average case, O(n) in the best case (when the list is already sorted).";
+                    spaceComplexity = "Space complexity:  O(1) as it only requires a constant amount of additional space.";
+                    break;
+                case "Merge Sort":
+                description = " Merge Sort is a divide and conquer algorithm. It divides the input list into two halves, sorts each half recursively, and then merges the sorted halves to produce a single sorted list.";
+                    timeComplexity = "Time complexity: O(n log n) in all cases (worst, average, and best).";
+                    spaceComplexity = "Space complexity:  O(n) as it requires additional space to store the temporary merged arrays during the merge step.";
+                case "Quicksort":
+                description = " Quicksort is also a divide and conquer algorithm. It selects a pivot element and partitions the array into two subarrays such that elements less than the pivot are on the left and elements greater than the pivot are on the right. It then recursively sorts the subarrays.";
+                    timeComplexity = "Time complexity:  O(n log n) in the average and best case, O(n^2) in the worst case (rare).";
+                    spaceComplexity = "Space complexity: O(log n) to O(n) due to the recursive nature of the algorithm.";
+                    break;
+                case "Heapsort":
+                description = " Heapsort is a comparison-based sorting algorithm that builds a heap from the input array and repeatedly extracts the maximum element from the heap and rebuilds the heap until the array is sorted.";
+                    timeComplexity = "Time complexity:  O(n log n) in all cases (worst, average, and best).";
+                    spaceComplexity = "Space complexity: O(1) as it only requires a constant amount of additional space.";
+                    break;
+            }
+
+        
+            document.getElementById("description-heading").innerText = algorithm;
+            document.getElementById("description-text").innerText = description;
+            document.getElementById("time-complexity").innerText = timeComplexity;
+            document.getElementById("space-complexity").innerText = spaceComplexity;
+            document.getElementById("description-container").classList.remove("display-none");
+        }
+    </script>
+</body>
+</html>
